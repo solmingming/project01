@@ -46,12 +46,23 @@ class MainActivity : AppCompatActivity() {
                         "3. 토마토는 얇게 잘라주고, 상추는 씻어서 물기를 제거해줍니다.\n" +
                         "4. 빵 한 쪽에 마요네즈를 바르고 상추 -> 토마토 -> 계란 순으로 쌓아줍니다.\n" +
                         "5. 다른 빵으로 덮고 반으로 자르면 완성!",
-                rating = 1,
+                rating = 2,
                 author = "김제형",
                 ingredients = listOf("빵","계란","토마토","상추","마요네즈")
             )
         )
-
+        RecipeRepository.recipeList.add(
+            Recipe(
+                imageFileName = "exboyfriend_toast.jpg",
+                title = "전남친 토스트",
+                description = "1. 식빵을 토스터기에 구워줍니다.\n" +
+                        "2. 크림치즈를 식빵에 발라줍니다.\n" +
+                        "3. 블루베리잼을 발라준 뒤 전자레인지에 10초간 데워주면 완성!",
+                rating = 1,
+                author = "김제형",
+                ingredients = listOf("빵","크림치즈","블루베리잼")
+            )
+        )
 
     }
 }

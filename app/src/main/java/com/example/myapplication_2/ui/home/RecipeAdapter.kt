@@ -1,38 +1,70 @@
 package com.example.myapplication_2.ui.home
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.myapplication_2.R
 import com.example.myapplication_2.ui.model.Recipe
+import java.io.IOException
 
-class RecipeAdapter(private val recipes: List<Recipe>) :
-    RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+class RecipeAdapter(private val recipeList: List<Recipe>) :
+    RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
 
-    class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image: ImageView = view.findViewById(R.id.recipeImage)
-        val title: TextView = view.findViewById(R.id.recipeTitle)
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val imageView: ImageView = view.findViewById(R.id.imageView)
+        val titleTextView: TextView = view.findViewById(R.id.textTitle)
+        val ingredientsTextView: TextView = view.findViewById(R.id.textIngredients)
+        val difficultyContainer: LinearLayout = view.findViewById(R.id.difficultyContainer)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_recipe, parent, false)
-        return RecipeViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) {
-        val recipe = recipes[position]
-        holder.title.text = recipe.title
+    override fun getItemCount(): Int = recipeList.size
 
-        val assetPath = "file:///android_asset/dish_Image/${recipe.imageFileName}"
-        Glide.with(holder.itemView.context)
-            .load(assetPath)
-            .into(holder.image)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val recipe = recipeList[position]
+
+        // 제목 및 재료 표시
+        holder.titleTextView.text = recipe.title
+        holder.ingredientsTextView.text = recipe.ingredients.joinToString(" ") { "#$it" }
+
+        // 이미지 로드 (assets/dishImage/파일명)
+        val context: Context = holder.itemView.context
+        try {
+            val assetManager = context.assets
+            val inputStream = assetManager.open("dishImage/${recipe.imageFileName}")
+            val drawable = android.graphics.drawable.Drawable.createFromStream(inputStream, null)
+            holder.imageView.setImageDrawable(drawable)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        // 난이도(물방울) 초기화 후 다시 채움
+        holder.difficultyContainer.removeAllViews()
+        val difficulty = recipe.rating.coerceIn(0, 5)
+
+        repeat(difficulty) {
+            val dropIcon = ImageView(context).apply {
+                setImageResource(R.drawable.ic_drop) // drawable에 있는 물방울 이미지 리소스
+                val sizeInDp = 25
+                val scale = context.resources.displayMetrics.density
+                val sizeInPx = (sizeInDp * scale + 0.5f).toInt()
+                layoutParams = LinearLayout.LayoutParams(sizeInPx, sizeInPx).apply {
+                    setMargins(1, 0, 1, 0)
+                }
+                scaleType = ImageView.ScaleType.FIT_CENTER
+            }
+            holder.difficultyContainer.addView(dropIcon)
+        }
+
     }
-
-    override fun getItemCount() = recipes.size
 }
