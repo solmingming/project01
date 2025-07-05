@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication_2.R
 import com.example.myapplication_2.ui.model.Recipe
 import java.io.IOException
+import android.os.Bundle
+import androidx.navigation.Navigation
 
 class RecipeAdapter(private val recipeList: List<Recipe>) :
     RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
@@ -20,6 +22,7 @@ class RecipeAdapter(private val recipeList: List<Recipe>) :
         val titleTextView: TextView = view.findViewById(R.id.textTitle)
         val ingredientsTextView: TextView = view.findViewById(R.id.textIngredients)
         val difficultyContainer: LinearLayout = view.findViewById(R.id.difficultyContainer)
+        val cardContent: LinearLayout = view.findViewById(R.id.cardContent)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -66,5 +69,12 @@ class RecipeAdapter(private val recipeList: List<Recipe>) :
             holder.difficultyContainer.addView(dropIcon)
         }
 
+        holder.cardContent.setOnClickListener {
+            val bundle = Bundle().apply {
+                putInt("recipe_index", position)
+            }
+            Navigation.findNavController(holder.itemView)
+                .navigate(R.id.action_navigation_home_to_recipeDetailFragment, bundle)
+        }
     }
 }

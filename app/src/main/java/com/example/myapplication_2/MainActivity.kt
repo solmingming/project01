@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.myapplication_2.databinding.ActivityMainBinding
 import com.example.myapplication_2.ui.model.Recipe
 import com.example.myapplication_2.data.RecipeRepository
-
+import com.example.myapplication_2.data.sampleRecipes
 
 
 
@@ -35,34 +35,28 @@ class MainActivity : AppCompatActivity() {
             )
         )
         //setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        //navView.setupWithNavController(navController)
+        navView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    navController.popBackStack(R.id.navigation_home, false)
+                    navController.navigate(R.id.navigation_home)
+                    true
+                }
+                R.id.navigation_dashboard -> {
+                    navController.popBackStack(R.id.navigation_dashboard, false)
+                    navController.navigate(R.id.navigation_dashboard)
+                    true
+                }
+                R.id.navigation_notifications -> {
+                    navController.popBackStack(R.id.navigation_notifications, false)
+                    navController.navigate(R.id.navigation_notifications)
+                    true
+                }
+                else -> false
+            }
+        }
 
-        RecipeRepository.recipeList.add(
-            Recipe(
-                imageFileName = "morning_fresh_sandwich.jpg",
-                title = "모닝 프레시 샌드위치",
-                description = "1. 식빵을 토스터나 팬에 살짝 노릇하게 구워줍니다.\n" +
-                        "2. 계란을 완숙으로 프라이 해줍니다.\n" +
-                        "3. 토마토는 얇게 잘라주고, 상추는 씻어서 물기를 제거해줍니다.\n" +
-                        "4. 빵 한 쪽에 마요네즈를 바르고 상추 -> 토마토 -> 계란 순으로 쌓아줍니다.\n" +
-                        "5. 다른 빵으로 덮고 반으로 자르면 완성!",
-                rating = 2,
-                author = "김제형",
-                ingredients = listOf("빵","계란","토마토","상추","마요네즈")
-            )
-        )
-        RecipeRepository.recipeList.add(
-            Recipe(
-                imageFileName = "exboyfriend_toast.jpg",
-                title = "전남친 토스트",
-                description = "1. 식빵을 토스터기에 구워줍니다.\n" +
-                        "2. 크림치즈를 식빵에 발라줍니다.\n" +
-                        "3. 블루베리잼을 발라준 뒤 전자레인지에 10초간 데워주면 완성!",
-                rating = 1,
-                author = "김제형",
-                ingredients = listOf("빵","크림치즈","블루베리잼")
-            )
-        )
-
+        RecipeRepository.recipeList.addAll(sampleRecipes)
     }
 }
