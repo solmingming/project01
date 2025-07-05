@@ -11,7 +11,6 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
 
-        <!-- ✅ 이 위치에 action을 추가해야 합니다 -->
         <action
             android:id="@+id/action_navigation_home_to_recipeDetailFragment"
             app:destination="@id/recipeDetailFragment" />
