@@ -14,6 +14,8 @@ import com.example.myapplication_2.R
 import com.example.myapplication_2.data.RecipeRepository
 import com.example.myapplication_2.databinding.FragmentRecipeDetailBinding
 import android.view.Gravity
+import android.graphics.Outline
+import android.view.ViewOutlineProvider
 
 class RecipeDetailFragment : Fragment() {
 
@@ -46,6 +48,16 @@ class RecipeDetailFragment : Fragment() {
             Glide.with(this)
                 .load(assetPath)
                 .into(binding.recipeImage)
+
+            // 이미지 둥글게 만들기 (OutlineProvider)
+            binding.recipeImage.outlineProvider = object : ViewOutlineProvider() {
+                override fun getOutline(view: View, outline: Outline) {
+                    val radius = 24f // 둥근 정도 설정
+                    outline.setRoundRect(0, 0, view.width, view.height, radius)
+                }
+            }
+            binding.recipeImage.clipToOutline = true // 클리핑을 true로 설정하여 모서리를 둥글게 만듦
+
 
             // 난이도 (별점)
             binding.ratingContainer.removeAllViews()

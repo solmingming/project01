@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="24dp">
+
+    <!-- 추천 메뉴 이미지 (정방형 + 라운드 마스크 적용) -->
+    <ImageView
+        android:id="@+id/recommendImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="16dp"
+        android:scaleType="centerCrop"
+        android:clipToOutline="true"
+        android:background="@drawable/rounded_corner_mask" />
+
+    <!-- 추천 메뉴 제목, 난이도, 해시태그 -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical">
+
+        <!-- 추천 메뉴 제목 -->
+        <TextView
+            android:id="@+id/recommendTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="오늘의 넙죽메뉴"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#000000" />
+
+        <!-- 난이도 (별점) -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <ImageView
+                android:id="@+id/star1"
+                android:src="@drawable/gray_star2"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="4dp"/>
+            <ImageView
+                android:id="@+id/star2"
+                android:src="@drawable/gray_star2"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="4dp"/>
+            <ImageView
+                android:id="@+id/star3"
+                android:src="@drawable/gray_star2"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="4dp"/>
+            <ImageView
+                android:id="@+id/star4"
+                android:src="@drawable/gray_star2"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="4dp"/>
+            <ImageView
+                android:id="@+id/star5"
+                android:src="@drawable/gray_star2"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginEnd="4dp"/>
+        </LinearLayout>
+
+        <!-- 레시피 태그 -->
+        <TextView
+            android:id="@+id/recommendTags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#아보카도 #새우 #토스트"
+            android:textColor="#000000"
+            android:textSize="12dp"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
