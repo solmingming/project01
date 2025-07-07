@@ -10,6 +10,8 @@ data class RandomUser(
 
 object UserGenerator {
 
+    private var cachedUser: RandomUser? = null
+
     private val adjectiveColorMap = mapOf(
         "달콤한" to "#FFE6E6",
         "바삭한" to "#FFF4E6",
@@ -41,15 +43,17 @@ object UserGenerator {
     )
 
     fun generate(): RandomUser {
+        if (cachedUser != null) return cachedUser!!
+
         val adjective = adjectiveColorMap.keys.random()
         val ingredient = ingredientImageMap.keys.random()
         val color = adjectiveColorMap[adjective] ?: "#FFFFFF"
         val imageResId = ingredientImageMap[ingredient] ?: R.drawable.default_avatar
 
-        return RandomUser("$adjective $ingredient", color, imageResId)
+        cachedUser = RandomUser("$adjective $ingredient", color, imageResId)
+        return cachedUser!!
     }
 
-    // 이건 따로 빼도 되지만, 여기에 간단히 유지해도 됨
     fun generateRandomUsername(): String {
         val adjective = adjectiveColorMap.keys.random()
         val ingredient = ingredientImageMap.keys.random()
