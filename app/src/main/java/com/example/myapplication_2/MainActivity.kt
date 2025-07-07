@@ -16,6 +16,9 @@ import com.example.myapplication_2.ui.model.Recipe
 import com.example.myapplication_2.data.RecipeRepository
 import com.example.myapplication_2.data.sampleRecipes
 import com.example.myapplication_2.R.id.navigation_notifications
+import android.content.Context
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,8 +40,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
             )
         )
-        //setupActionBarWithNavController(navController, appBarConfiguration)
-        //navView.setupWithNavController(navController)
+
         navView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
@@ -59,7 +61,15 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
 
-
+    // 👇 이 부분이 onCreate() 바깥에 있어야 함!
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (currentFocus != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+            currentFocus!!.clearFocus()
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }
