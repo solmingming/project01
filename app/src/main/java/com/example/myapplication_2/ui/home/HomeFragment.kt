@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication_2.databinding.FragmentHomeBinding
 import com.example.myapplication_2.data.RecipeRepository
-import com.example.myapplication_2.data.sampleRecipes
 import com.example.myapplication_2.ui.model.Recipe
 
 class HomeFragment : Fragment() {
@@ -34,11 +33,8 @@ class HomeFragment : Fragment() {
             WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
         )
 
-        // 샘플 레시피 초기화
-        if (RecipeRepository.recipeList.isEmpty()) {
-            RecipeRepository.recipeList.addAll(sampleRecipes)
-        }
-        fullRecipeList = RecipeRepository.recipeList
+        // 🔄 전체 레시피 목록 (샘플 + 유저 추가 포함)
+        fullRecipeList = RecipeRepository.getAllRecipes()
 
         setupRecipeRecyclerView(fullRecipeList, fullRecipeList.randomOrNull())
         setupSearchBar()
@@ -56,7 +52,6 @@ class HomeFragment : Fragment() {
         binding.root.setOnTouchListener { v, _ ->
             hideKeyboard(v)
             binding.searchBar.clearFocus()
-
             false
         }
 
@@ -65,7 +60,8 @@ class HomeFragment : Fragment() {
 
     private fun setupRecipeRecyclerView(recipeList: List<Recipe>, recommendedRecipe: Recipe?) {
         binding.recipeRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recipeRecyclerView.adapter = RecipeAdapter(recipeList, recommendedRecipe, showSectionHeader = recommendedRecipe != null)
+        binding.recipeRecyclerView.adapter =
+            RecipeAdapter(recipeList, recommendedRecipe, showSectionHeader = recommendedRecipe != null)
     }
 
     private fun setupSearchBar() {
@@ -88,7 +84,6 @@ class HomeFragment : Fragment() {
 
                 val recommended = if (query.isBlank()) filtered.randomOrNull() else null
 
-                // 🔹 RecyclerView 갱신
                 setupRecipeRecyclerView(filtered, recommended)
             }
         })

@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-
+        android:paddingBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -21,7 +21,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
+            android:fitsSystemWindows="false"
             android:padding="0dp">
 
             <TextView
@@ -100,6 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="436dp"
+                android:layout_marginTop="8dp"
                 android:text="난이도"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -179,7 +180,7 @@
                     android:hint="step1. 레시피를 작성해주세요"
                     android:inputType="textMultiLine"
                     android:padding="12dp"
-                    android:textSize="12sp" />
+                    android:textSize="11sp" />
 
                 <!-- + 버튼 -->
                 <ImageButton
@@ -197,25 +198,26 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/submitButton"
-                android:layout_width="229dp"
-                android:layout_height="41dp"
-                android:layout_margin="16dp"
-                android:background="@drawable/rounded_button"
-                android:enabled="false"
-                android:text="레시피 업로드"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.538"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.949" />
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="229dp"
+        android:layout_height="41dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/rounded_button"
+        android:enabled="false"
+        android:text="레시피 업로드"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

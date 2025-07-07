@@ -2,6 +2,7 @@ package com.example.myapplication_2.ui.home
 
 import android.content.Context
 import android.graphics.Outline
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.example.myapplication_2.R
 import com.example.myapplication_2.data.RecipeRepository
 import com.example.myapplication_2.ui.model.Recipe
 import java.io.IOException
+import com.bumptech.glide.Glide
 
 class RecipeAdapter(
     private val recipeList: List<Recipe>,
@@ -94,6 +96,7 @@ class RecipeAdapter(
             else -> 0
         }
 
+        // onBindViewHolder 내부
         when (holder) {
             is RecommendViewHolder -> {
                 recommendedRecipe?.let { recipe ->
@@ -101,12 +104,16 @@ class RecipeAdapter(
                     holder.recommendTags.text = "#${recipe.ingredients.joinToString(" #")}"
 
                     val context = holder.itemView.context
-                    try {
-                        val inputStream = context.assets.open("dishImage/${recipe.imageFileName}")
-                        val drawable = android.graphics.drawable.Drawable.createFromStream(inputStream, null)
-                        holder.recommendImage.setImageDrawable(drawable)
-                    } catch (e: IOException) {
-                        e.printStackTrace()
+                    if (recipe.imageUri != null) {
+                        Glide.with(context).load(recipe.imageUri).into(holder.recommendImage)
+                    } else {
+                        try {
+                            val inputStream = context.assets.open("dishImage/${recipe.imageFileName}")
+                            val drawable = Drawable.createFromStream(inputStream, null)
+                            holder.recommendImage.setImageDrawable(drawable)
+                        } catch (e: IOException) {
+                            e.printStackTrace()
+                        }
                     }
 
                     holder.starViews.forEachIndexed { index, starView ->
@@ -143,12 +150,16 @@ class RecipeAdapter(
                 holder.ingredientsTextView.text = recipe.ingredients.joinToString(" ") { "#$it" }
 
                 val context: Context = holder.itemView.context
-                try {
-                    val inputStream = context.assets.open("dishImage/${recipe.imageFileName}")
-                    val drawable = android.graphics.drawable.Drawable.createFromStream(inputStream, null)
-                    holder.imageView.setImageDrawable(drawable)
-                } catch (e: IOException) {
-                    e.printStackTrace()
+                if (recipe.imageUri != null) {
+                    Glide.with(context).load(recipe.imageUri).into(holder.imageView)
+                } else {
+                    try {
+                        val inputStream = context.assets.open("dishImage/${recipe.imageFileName}")
+                        val drawable = android.graphics.drawable.Drawable.createFromStream(inputStream, null)
+                        holder.imageView.setImageDrawable(drawable)
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
                 }
 
                 holder.difficultyContainer.removeAllViews()
@@ -176,7 +187,8 @@ class RecipeAdapter(
 
                 holder.cardContent.setOnClickListener {
                     val bundle = Bundle().apply {
-                        val indexInRepo = RecipeRepository.recipeList.indexOfFirst { it.imageFileName == recipe.imageFileName }
+                        val indexInRepo = RecipeRepository.getAllRecipes()
+                            .indexOfFirst { it.imageFileName == recipe.imageFileName }
                         putInt("recipe_index", indexInRepo.takeIf { it >= 0 } ?: 0)
                     }
                     Navigation.findNavController(holder.itemView)
@@ -184,5 +196,6 @@ class RecipeAdapter(
                 }
             }
         }
+
     }
 }

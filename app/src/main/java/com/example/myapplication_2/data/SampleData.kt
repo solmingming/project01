@@ -125,5 +125,28 @@ val sampleRecipes = listOf(
         rating = 4,
         author = "촉촉한 토마토",
         ingredients = listOf("파스타면","소고기","소금","후추","채소")
+    ),
+    Recipe(
+        imageFileName = "jjappaguri.jpg",
+        title = "짜파구리",
+        description = listOf("냄비에 물 약 600ml를 끓이고 너구리, 짜파게티의 면과 건더기스프를 넣고 끓입니다",
+                "면이 익으면 물을 약 4~5큰술 정도만 남기고 모두 버립니다",
+                "짜장 분말, 너구리 분말 스프를 함께 넣고 중불에서 30초 정도 볶듯이 비벼줍니다",
+                "접시에 담고 계란 노른자를 올려주면 완성!"),
+        rating = 2,
+        author = "달콤한 피자",
+        ingredients = listOf("짜파게티","너구리","계란")
+    ),
+    Recipe(
+        imageFileName = "tteokbokki.jpg",
+        title = "떡볶이",
+        description = listOf("떡은 물에 10분 불려주기, 어묵과 대파를 먹기 좋은 크기로 썰어둡니다",
+                "냄비에 물 300ml 넣고 끓이면서 고추장 1.5큰술, 간장 1큰술, 설탕 1큰술을 넣고 풀어줍니다",
+                "기호에 따라 고춧가루도 0.5큰술 추가해줍니다",
+                "떡과 어묵을 넣고 중불~강불에서 약 10분간 졸여줍니다",
+                "국물이 걸쭉해지면 대파와 삶은 계란을 올려주면 완성!"),
+        rating = 3,
+        author = "촉촉한 토마토",
+        ingredients = listOf("떡","어묵","고추장","간장","설탕")
     )
 )

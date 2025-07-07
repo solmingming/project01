@@ -19,6 +19,7 @@ import com.google.android.material.chip.Chip
 import androidx.core.widget.addTextChangedListener
 import com.example.myapplication_2.ui.model.Recipe
 import androidx.navigation.fragment.findNavController
+import com.example.myapplication_2.data.RecipeRepository
 
 import com.example.myapplication_2.ui.notifications.NotificationsFragment
 
@@ -164,6 +165,7 @@ class DashboardFragment : Fragment() {
 
             val recipe = Recipe(
                 imageFileName = imageFileName,
+                imageUri = currentImageUri?.toString(),
                 title = title,
                 description = steps.toList(),
                 rating = rating,
@@ -172,6 +174,8 @@ class DashboardFragment : Fragment() {
             )
 
             savedRecipeList.add(recipe)
+            RecipeRepository.addRecipe(recipe)
+
             Toast.makeText(requireContext(), "레시피가 저장되었어요!", Toast.LENGTH_SHORT).show()
 
             // 로그는 따로 출력
