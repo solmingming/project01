@@ -4,10 +4,10 @@ import android.net.Uri
 
 
 data class Recipe(
-    val imageFileName: String,
-    val title: String,
-    val description: List<String>,   // ✅ 이 부분이 중요!
-    val rating: Int,
-    val author: String,
-    val ingredients: List<String>
+    val imageFileName: String,   // 예: "pasta1.jpg"
+    val title: String,           // 음식 제목
+    val description: List<String> = listOf(),     // 레시피 본문
+    val rating: Int,             // 별점 (0~5 사이 정수)
+    val author: String,           // 만든이
+    val ingredients: List<String> = listOf()
 )
