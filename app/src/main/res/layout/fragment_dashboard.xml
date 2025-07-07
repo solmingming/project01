@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="메뉴명"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/text_dashboard"
                 app:layout_constraintTop_toBottomOf="@+id/text_dashboard" />
 
@@ -70,7 +70,7 @@
                 android:layout_width="154dp"
 
                 android:layout_height="38dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/edittext_background"
                 android:hint="메뉴명을 입력해주세요."
                 android:inputType="text"
@@ -101,26 +101,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="436dp"
                 android:text="난이도"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.038"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/label_menu"
                 app:layout_constraintTop_toBottomOf="@+id/editTextMenuName"
-                app:layout_constraintVertical_bias="0.205" />
+                app:layout_constraintVertical_bias="0.1" />
 
             <AutoCompleteTextView
                 android:id="@+id/multiSearch"
-                android:layout_width="154dp"
-                android:layout_height="38dp"
-                android:layout_marginStart="136dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/edittext_background"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ingredient_input"
                 android:completionThreshold="1"
-                android:dropDownAnchor="@id/multiSearch"
-                android:hint="재료는 다섯개까지 입력 가능."
+                android:hint="재료는 다섯개까지만 입력 가능합니다."
+                android:inputType="text"
                 android:padding="12dp"
-                android:textSize="10dp"
+                android:textColorHint="#999999"
+                android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="@+id/editTextMenuName"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/imageUpload"
@@ -145,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:text="재료"
                 android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/imageUpload"
+                app:layout_constraintStart_toStartOf="@+id/imageUpload"
                 app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
             <TextView
@@ -197,22 +197,25 @@
 
             </LinearLayout>
 
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="229dp"
+                android:layout_height="41dp"
+                android:layout_margin="16dp"
+                android:background="@drawable/rounded_button"
+                android:enabled="false"
+                android:text="레시피 업로드"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.538"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.949" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="레시피 업로드"
-        android:layout_margin="16dp"
-        android:background="@drawable/rounded_button"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:enabled="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
