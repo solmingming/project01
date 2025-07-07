@@ -6,11 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication_2.ui.model.Recipe
-import com.example.myapplication_2.R
 import com.example.myapplication_2.databinding.FragmentNotificationsBinding
 import com.example.myapplication_2.ui.RecipeAdapter
+import com.example.myapplication_2.ui.model.Recipe
 
 class NotificationsFragment : Fragment() {
 
@@ -18,7 +16,7 @@ class NotificationsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var recipeAdapter: RecipeAdapter
-    private val recipeList = mutableListOf<Recipe>()  // 나중에 데이터 전달 또는 공유
+    private val recipeList = mutableListOf<Recipe>() // 나중에 실제 데이터 전달로 대체 가능
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,14 +24,19 @@ class NotificationsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
-        val root = binding.root
 
-        // RecyclerView 설정
-        recipeAdapter = RecipeAdapter(recipeList)
-        binding.recipeRecyclerView.layoutManager = GridLayoutManager(context, 3)
-        binding.recipeRecyclerView.adapter = recipeAdapter
+        setupRecyclerView()
 
-        return root
+        return binding.root
+    }
+
+    private fun setupRecyclerView() {
+        recipeAdapter = RecipeAdapter(recipeList,null,false)
+
+        binding.recipeRecyclerView.apply {
+            layoutManager = GridLayoutManager(context, 3)
+            adapter = recipeAdapter
+        }
     }
 
     override fun onDestroyView() {

@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingHorizontal="16dp"
-    android:paddingTop="12dp"
+    android:paddingTop="8dp"
     android:paddingBottom="6dp">
 
     <!-- ⬛ 이미지 + Pick 텍스트 겹치기 -->
@@ -43,7 +43,7 @@
             android:textColor="#FFFFFF"
             android:textSize="9sp"
             android:textStyle="bold"
-            android:translationX="20dp"
+            android:translationX="21dp"
             android:translationY="1dp" />
     </FrameLayout>
 

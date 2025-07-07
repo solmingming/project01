@@ -12,7 +12,7 @@ import android.net.Uri
 
 
 
-class RecipeAdapter(private val recipes: List<Recipe>) :
+class RecipeAdapter(private val recipes: List<Recipe>, nothing: Nothing?, bool: Boolean) :
     RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
 
     inner class RecipeViewHolder(view: View) : RecyclerView.ViewHolder(view) {

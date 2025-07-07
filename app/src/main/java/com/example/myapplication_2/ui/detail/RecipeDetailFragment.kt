@@ -15,7 +15,9 @@ import com.example.myapplication_2.data.RecipeRepository
 import com.example.myapplication_2.databinding.FragmentRecipeDetailBinding
 import android.view.Gravity
 import android.graphics.Outline
+import android.view.ContextThemeWrapper
 import android.view.ViewOutlineProvider
+import com.google.android.material.chip.Chip
 
 class RecipeDetailFragment : Fragment() {
 
@@ -82,10 +84,12 @@ class RecipeDetailFragment : Fragment() {
             rcp.ingredients.forEach { ingredient ->
                 val tag = TextView(context).apply {
                     text = "#$ingredient"
+                    textSize = 10f
                     setPadding(16, 8, 16, 8)
                     setTextColor(ContextCompat.getColor(context, R.color.purple_200))
                     background =
                         ContextCompat.getDrawable(context, R.drawable.ingredient_tag_background)
+                    elevation = 6f
                     layoutParams = ViewGroup.MarginLayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT
@@ -95,6 +99,8 @@ class RecipeDetailFragment : Fragment() {
                 }
                 binding.ingredientsContainer.addView(tag)
             }
+
+
 
             // 레시피 단계
             binding.textDescriptionContainer.removeAllViews()

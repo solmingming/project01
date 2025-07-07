@@ -56,6 +56,7 @@ class HomeFragment : Fragment() {
         binding.root.setOnTouchListener { v, _ ->
             hideKeyboard(v)
             binding.searchBar.clearFocus()
+
             false
         }
 

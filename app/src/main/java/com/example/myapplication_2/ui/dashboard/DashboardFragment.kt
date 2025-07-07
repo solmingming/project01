@@ -178,7 +178,13 @@ class DashboardFragment : Fragment() {
             Log.d("SavedRecipe", "현재 저장된 레시피 수: ${savedRecipeList.size}")
             Log.d("SavedRecipe", "제목: ${recipe.title}, 재료: ${recipe.ingredients}, 설명: ${recipe.description}")
 
-            findNavController().navigate(R.id.navigation_notifications)
+            // 프로필로 이동
+            findNavController().navigate(R.id.action_navigation_dashboard_to_navigation_notifications)
+
+// 하단 탭 상태도 같이 변경
+            val activity = requireActivity()
+            val bottomNav = activity.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view)
+            bottomNav.selectedItemId = R.id.navigation_notifications
 
 
         }
