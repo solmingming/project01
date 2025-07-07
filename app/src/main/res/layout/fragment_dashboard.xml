@@ -5,18 +5,214 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment">
+    <!-- 📄 스크롤 가능한 레시피 입력 화면 -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
 
-    <TextView
-        android:id="@+id/text_dashboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:padding="0dp">
+
+            <TextView
+                android:id="@+id/text_dashboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+
+                android:fontFamily="@font/dunggeunmo"
+                android:text="My recipe"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/imageUpload"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="8dp"
+                android:adjustViewBounds="false"
+                android:background="@drawable/uploadicon"
+                android:clickable="true"
+                android:contentDescription="식사 사진 업로드"
+                android:focusable="true"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="@+id/text_dashboard"
+                app:layout_constraintTop_toBottomOf="@id/text_dashboard" />
+
+            <TextView
+                android:id="@+id/label_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="메뉴명"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/text_dashboard"
+                app:layout_constraintTop_toBottomOf="@+id/text_dashboard" />
+
+            <!-- 난이도 -->
+
+            <!-- 재료 -->
+
+            <EditText
+                android:id="@+id/editTextMenuName"
+                android:layout_width="154dp"
+
+                android:layout_height="38dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/edittext_background"
+                android:hint="메뉴명을 입력해주세요."
+                android:inputType="text"
+                android:padding="12dp"
+                android:textColor="#000000"
+                android:textColorHint="#888888"
+                android:textSize="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/label_menu"
+                app:layout_constraintTop_toBottomOf="@id/label_menu" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                android:stepSize="1"
+                app:layout_constraintEnd_toEndOf="@+id/multiSearch"
+                app:layout_constraintStart_toStartOf="@+id/textView_difficulty"
+                app:layout_constraintTop_toBottomOf="@id/textView_difficulty" />
+
+            <TextView
+                android:id="@+id/textView_difficulty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="436dp"
+                android:text="난이도"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.038"
+                app:layout_constraintStart_toStartOf="@+id/label_menu"
+                app:layout_constraintTop_toBottomOf="@+id/editTextMenuName"
+                app:layout_constraintVertical_bias="0.205" />
+
+            <AutoCompleteTextView
+                android:id="@+id/multiSearch"
+                android:layout_width="154dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="136dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/edittext_background"
+                android:completionThreshold="1"
+                android:dropDownAnchor="@id/multiSearch"
+                android:hint="재료는 다섯개까지 입력 가능."
+                android:padding="12dp"
+                android:textSize="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/editTextMenuName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/imageUpload"
+                app:layout_constraintTop_toBottomOf="@id/label_ingredient" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                style="@style/CustomChipStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="0dp"
+                app:chipSpacing="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/multiSearch"
+                app:layout_constraintTop_toBottomOf="@id/multiSearch"
+                app:singleLine="false" />
+
+            <TextView
+                android:id="@+id/label_ingredient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="재료"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/imageUpload"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="레시피"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/imageUpload"
+                app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+
+            <!-- 레시피 단계 컨테이너 -->
+            <LinearLayout
+                android:id="@+id/stepContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                <!-- 첫 번째 입력칸 -->
+                <EditText
+                    android:id="@+id/stepEditText1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/edittext_background"
+                    android:hint="step1. 레시피를 작성해주세요"
+                    android:inputType="textMultiLine"
+                    android:padding="12dp"
+                    android:textSize="12sp" />
+
+                <!-- + 버튼 -->
+                <ImageButton
+                    android:id="@+id/addStepButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/edittext_background"
+                    android:padding="12dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_add"
+                    android:contentDescription="레시피 추가 버튼"
+                    />
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="레시피 업로드"
+        android:layout_margin="16dp"
+        android:background="@drawable/rounded_button"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

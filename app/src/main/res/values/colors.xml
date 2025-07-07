@@ -7,4 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="my_chip_bg">#FFFFFF</color>
+    <color name="my_chip_text">#52B6F4</color>
+    <color name="my_chip_stroke">#52B6F4</color>
+    <color name="sol_gray">#CCCCCC</color>
+    <color name="sol_sky_blue">#63B3ED</color>
+
+
 </resources>

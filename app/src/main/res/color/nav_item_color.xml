@@ -4,4 +4,5 @@
     <item android:state_checked="true" android:color="#000000" />
     <!-- 선택되지 않은 탭: 흰색 -->
     <item android:color="#FFFFFF" />
+
 </selector>

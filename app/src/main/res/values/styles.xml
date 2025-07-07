@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="colorControlActivated">#FFD700</item> <!-- 별 색 -->
+        <item name="colorControlNormal">#DDDDDD</item>   <!-- 비어 있는 별 색 -->
+    </style>
+
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Entry">
+        <item name="android:textColor">@color/my_chip_text</item>
+        <item name="chipBackgroundColor">@color/my_chip_bg</item>
+        <item name="chipStrokeColor">@color/my_chip_stroke</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+</resources>
