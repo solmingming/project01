@@ -1,64 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.notifications.NotificationsFragment">
+    android:orientation="vertical"
+    android:background="@android:color/white">
 
-    <!-- 유저 이름 -->
+    <!-- 상단 헤더 (My page 텍스트) -->
     <TextView
-        android:id="@+id/userNameTextView"
+        android:id="@+id/textMyPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="유저 이름"
-        android:textSize="16sp"
+        android:text="My page"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#444444"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"/>
+        android:fontFamily="@font/dunggeunmo"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="12dp" />
 
-    <!-- 이미지 + 원형 배경 -->
-    <FrameLayout
-        android:id="@+id/profileImageContainer"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/userNameTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+    <!-- 프로필 정보 영역 -->
+    <LinearLayout
+        android:id="@+id/profileInfoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:gravity="center_vertical">
 
-        <!-- 동그란 컬러 배경 -->
-        <View
-            android:id="@+id/colorCircle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/circle_background" />
-
-        <!-- 이미지 (중앙 정렬) -->
         <ImageView
-            android:id="@+id/profileImageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:scaleType="centerInside"
-            android:src="@drawable/default_avatar" />
-    </FrameLayout>
+            android:id="@+id/profileImage"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:scaleType="centerCrop"
+            android:clipToOutline="true" />
 
-    <!-- 레시피 리스트 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp">
+
+            <TextView
+                android:id="@+id/textUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="user1"
+                android:textSize="16sp"
+                android:textColor="@android:color/black" />
+
+            <Button
+                android:id="@+id/buttonMyFridge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="나의 냉장고"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/sol_sky_blue"
+                android:layout_marginTop="6dp"
+                android:paddingHorizontal="12dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 유저 레시피 목록 (그리드) -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recipeRecyclerView"
-        android:layout_width="0dp"
+        android:id="@+id/recyclerUserRecipes"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clipToPadding="false"
+        android:layout_weight="1"
         android:padding="8dp"
+        android:clipToPadding="false"
         android:scrollbars="vertical"
-        app:layout_constraintTop_toBottomOf="@id/profileImageContainer"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="3" />
+</LinearLayout>

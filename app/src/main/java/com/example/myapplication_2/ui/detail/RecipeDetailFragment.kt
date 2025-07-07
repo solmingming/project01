@@ -33,7 +33,7 @@ class RecipeDetailFragment : Fragment() {
         _binding = FragmentRecipeDetailBinding.inflate(inflater, container, false)
 
         val index = arguments?.getInt("recipe_index") ?: 0
-        val recipe = RecipeRepository.recipeList.getOrNull(index)
+        val recipe = RecipeRepository.getRecipe(index)
 
         recipe?.let { rcp ->
             val context = requireContext()
@@ -46,10 +46,17 @@ class RecipeDetailFragment : Fragment() {
             }
 
             // 이미지 로딩 (정방형)
-            val assetPath = "file:///android_asset/dishImage/${rcp.imageFileName}"
-            Glide.with(this)
-                .load(assetPath)
-                .into(binding.recipeImage)
+            if (rcp.imageUri != null) {
+                Glide.with(this)
+                    .load(rcp.imageUri)
+                    .into(binding.recipeImage)
+            } else {
+                val assetPath = "file:///android_asset/dishImage/${rcp.imageFileName}"
+                Glide.with(this)
+                    .load(assetPath)
+                    .into(binding.recipeImage)
+            }
+
 
             // 이미지 둥글게 만들기 (OutlineProvider)
             binding.recipeImage.outlineProvider = object : ViewOutlineProvider() {
