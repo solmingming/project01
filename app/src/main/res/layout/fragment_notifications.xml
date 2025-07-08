@@ -39,6 +39,7 @@
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_marginBottom="8dp"
+                android:background="@drawable/circle_background"
                 android:scaleType="centerCrop" />
 
             <TextView
@@ -52,10 +53,10 @@
             <Button
                 android:id="@+id/buttonMyFridge"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginTop="8dp"
                 android:text="나의 냉장고"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 android:textColor="@android:color/white"
                 android:backgroundTint="@color/sol_sky_blue"
                 android:paddingHorizontal="12dp" />
