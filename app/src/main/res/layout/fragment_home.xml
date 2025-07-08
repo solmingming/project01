@@ -46,8 +46,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="20dp"
-        app:srcCompat="@drawable/ic_home_black_24dp"
+        android:layout_margin="15dp"
+        android:padding="0dp"
+        app:srcCompat="@drawable/fridge_icon"
+        app:iconSize="40dp"
         android:contentDescription="냉장고 검색"
         app:tint="@android:color/white"
         app:backgroundTint="@color/sol_sky_blue" />
