@@ -9,14 +9,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
         <!-- 상단 헤더 -->
         <TextView
             android:id="@+id/text_dashboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_marginBottom="12dp"
             android:fontFamily="@font/dunggeunmo"
             android:text="My Page"
@@ -101,6 +101,7 @@
         <!-- 기존 레시피 그리드 -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerUserRecipes"
+            android:layout_marginStart="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
