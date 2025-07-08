@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/intro_navigation"
+    app:startDestination="@id/firstRunFragment">
+
+    <!-- 첫 실행 화면 -->
+    <fragment
+        android:id="@+id/firstRunFragment"
+        android:name="com.example.myapplication_2.ui.firstRun.FirstRunFragment"
+        android:label="First Run"
+        tools:layout="@layout/fragment_first_run">
+        <action
+            android:id="@+id/action_firstRunFragment_to_accountCreationFragment"
+            app:destination="@id/accountCreationFragment" />
+    </fragment>
+
+    <!-- 계정 생성 화면 -->
+    <fragment
+        android:id="@+id/accountCreationFragment"
+        android:name="com.example.myapplication_2.ui.firstRun.AccountCreationFragment"
+        android:label="계정 생성"
+        tools:layout="@layout/fragment_account_creation" />
+</navigation>

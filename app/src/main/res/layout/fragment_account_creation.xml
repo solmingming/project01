@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp">
+
+    <!-- "계정 생성하기" 타이틀 -->
+    <TextView
+        android:id="@+id/userTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="계정 생성하기"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp" />
+
+    <!-- 프로필 컨테이너 (원형 배경) -->
+    <FrameLayout
+        android:id="@+id/profileContainer"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/circle_background">
+
+        <ImageView
+            android:id="@+id/generatedProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@drawable/default_avatar" />
+    </FrameLayout>
+
+    <!-- 계정 이름 -->
+    <TextView
+        android:id="@+id/generatedName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="달콤한 피자"
+        android:textSize="14sp"
+        android:textColor="#444444"
+        android:layout_marginBottom="24dp" />
+
+    <!-- 버튼들 -->
+    <Button
+        android:id="@+id/likeButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="마음에 들어요!" />
+
+    <Button
+        android:id="@+id/dislikeButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="마음에 안 들어요..."
+        android:layout_marginTop="12dp" />
+</LinearLayout>

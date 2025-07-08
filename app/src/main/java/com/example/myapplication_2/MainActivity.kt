@@ -1,43 +1,55 @@
 package com.example.myapplication_2
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.widget.AutoCompleteTextView
-import android.widget.ArrayAdapter
-import android.widget.MultiAutoCompleteTextView
-import android.widget.Toast
-import android.text.Editable
-import android.text.TextWatcher
+import android.util.Log
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import com.example.myapplication_2.databinding.ActivityMainBinding
-import com.example.myapplication_2.ui.model.Recipe
-import com.example.myapplication_2.data.RecipeRepository
-import com.example.myapplication_2.data.sampleRecipes
-import com.example.myapplication_2.R.id.navigation_notifications
-import android.content.Context
-import android.view.MotionEvent
-import android.view.inputmethod.InputMethodManager
+import com.example.myapplication_2.utils.UserGenerator
+import com.example.myapplication_2.utils.RandomUser
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var autoCompleteSearch: AutoCompleteTextView
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // ViewBinding 설정
+        // ✅ 유저 없으면 IntroActivity로 이동
+        val existingUser = UserGenerator.loadUserFromPrefs(this)
+        if (existingUser == null) {
+            Log.d("MainActivity", "🚫 유저 없음 → IntroActivity로 이동")
+            val intent = Intent(this, IntroActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        } else {
+            Log.d("MainActivity", "✅ 유저 존재: ${existingUser.name}")
+            UserGenerator.setCachedUser(existingUser)
+        }
+
+        // ✅ 뷰 바인딩
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // ✅ 네비게이션 설정
+        navController = findNavController(R.id.nav_host_fragment_activity_main)
+
         val navView: BottomNavigationView = binding.navView
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_home,
+                R.id.navigation_dashboard,
+                R.id.navigation_notifications
             )
         )
 
@@ -63,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // 👇 이 부분이 onCreate() 바깥에 있어야 함!
+    // 바깥 터치 시 키보드 내리기
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         if (currentFocus != null) {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -72,5 +84,4 @@ class MainActivity : AppCompatActivity() {
         }
         return super.dispatchTouchEvent(ev)
     }
-
 }

@@ -18,6 +18,7 @@ import com.example.myapplication_2.data.IngredientStore
 import com.example.myapplication_2.data.RecipeRepository
 import com.example.myapplication_2.databinding.FragmentDashboardBinding
 import com.example.myapplication_2.ui.model.Recipe
+import com.example.myapplication_2.utils.UserGenerator
 import com.google.android.material.chip.Chip
 
 class DashboardFragment : Fragment() {
@@ -135,13 +136,15 @@ class DashboardFragment : Fragment() {
                 }
             }
 
+            val currentUserName = UserGenerator.getCachedUser().name
+
             val recipe = Recipe(
                 imageFileName = imageFileName,
                 imageUri = currentImageUri,
                 title = title,
                 description = steps.toList(),
                 rating = rating,
-                author = "달콤한 피자",
+                author = currentUserName,
                 ingredients = selectedIngredients.toList()
             )
 

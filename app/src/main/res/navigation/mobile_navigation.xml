@@ -3,47 +3,63 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_home">
+    app:startDestination="@id/navigation_home"> <!-- ✅ 수정: 홈이 시작점 -->
 
+    <!-- ✅ 조건부 진입 화면 (유저 없을 경우만 MainActivity에서 이동) -->
+    <fragment
+        android:id="@+id/firstRunFragment"
+        android:name="com.example.myapplication_2.ui.firstRun.FirstRunFragment"
+        android:label="First Run"
+        tools:layout="@layout/fragment_first_run">
+        <action
+            android:id="@+id/action_firstRunFragment_to_accountCreationFragment"
+            app:destination="@id/accountCreationFragment" />
+    </fragment>
+
+    <!-- 계정 생성 화면 -->
+    <fragment
+        android:id="@+id/accountCreationFragment"
+        android:name="com.example.myapplication_2.ui.firstRun.AccountCreationFragment"
+        android:label="계정 생성"
+        tools:layout="@layout/fragment_account_creation" />
+
+    <!-- 홈 화면 -->
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.myapplication_2.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
-
         <action
             android:id="@+id/action_navigation_home_to_recipeDetailFragment"
             app:destination="@id/recipeDetailFragment" />
     </fragment>
 
+    <!-- 레시피 작성 탭 -->
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.myapplication_2.ui.dashboard.DashboardFragment"
         android:label="@string/title_create"
-        tools:layout="@layout/fragment_dashboard" >
-
+        tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_navigation_dashboard_to_navigation_notifications"
             app:destination="@id/navigation_notifications" />
     </fragment>
 
+    <!-- 마이페이지 탭 -->
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.myapplication_2.ui.notifications.NotificationsFragment"
         android:label="@string/title_myprofile"
-        tools:layout="@layout/fragment_notifications" >
-
+        tools:layout="@layout/fragment_notifications">
         <action
             android:id="@+id/action_navigation_notifications_to_recipeDetailFragment"
             app:destination="@id/recipeDetailFragment" />
     </fragment>
 
+    <!-- 레시피 상세 화면 -->
     <fragment
         android:id="@+id/recipeDetailFragment"
         android:name="com.example.myapplication_2.ui.detail.RecipeDetailFragment"
         android:label="레시피 상세"
         tools:layout="@layout/fragment_recipe_detail" />
-
-
-
 </navigation>

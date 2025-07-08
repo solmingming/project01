@@ -38,9 +38,6 @@ class NotificationsFragment : Fragment() {
     private lateinit var recipeAdapter: GridRecipeAdapter
     private val recipeList = mutableListOf<Recipe>()
 
-    private val adjectives = listOf("달콤한")
-    private val foods = listOf("피자")
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -54,8 +51,8 @@ class NotificationsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val context = requireContext()
-        val user = UserGenerator.generate()
-        val userName = getOrCreateRandomUserName(context)
+        val user = UserGenerator.getCachedUser()  // ⬅️ 기존 generate() → getCachedUser()로 변경
+        val userName = user.name                  // ⬅️ 캐시된 유저의 이름 사용
 
         // 프로필 이미지 및 컬러 적용
         binding.profileImage.setImageResource(user.imageResId)
@@ -165,16 +162,6 @@ class NotificationsFragment : Fragment() {
             layoutManager = GridLayoutManager(context, 3)
             adapter = recipeAdapter
         }
-    }
-
-    private fun getOrCreateRandomUserName(context: Context): String {
-        val prefs = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        val existingName = prefs.getString("randomUserName", null)
-        if (existingName != null) return existingName
-
-        val randomName = "${adjectives.random()} ${foods.random()}"
-        prefs.edit().putString("randomUserName", randomName).apply()
-        return randomName
     }
 
     override fun onDestroyView() {
