@@ -1,37 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- 🔍 검색바 -->
-    <EditText
-        android:id="@+id/searchBar"
+    <!-- 전체 컨텐츠 감싸는 레이아웃 -->
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 🔍 검색바 -->
+        <EditText
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="재료, 유저, 요리명 등 자유롭게 입력해주세요."
+            android:textColorHint="#656565"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:background="@drawable/searchbar_blue_border"
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:drawablePadding="8dp"
+            android:textSize="11sp"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:layout_margin="8dp"
+            android:maxLines="1" />
+
+        <!-- 📋 레시피 리스트 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recipeRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:padding="2dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </LinearLayout>
+
+    <!-- 🧊 냉장고 버튼 (FAB) -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fridgeButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="재료, 유저, 요리명 등 자유롭게 입력해주세요."
-        android:textColorHint="#656565"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:background="@drawable/searchbar_blue_border"
-        android:drawableStart="@android:drawable/ic_menu_search"
-        android:drawablePadding="8dp"
-        android:textSize="11sp"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:layout_margin="8dp"
-        android:maxLines="1" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recipeRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:padding="2dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-</LinearLayout>
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        app:srcCompat="@drawable/ic_home_black_24dp"
+        android:contentDescription="냉장고 검색"
+        app:tint="@android:color/white"
+        app:backgroundTint="@color/sol_sky_blue" />
+</FrameLayout>
