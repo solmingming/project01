@@ -18,6 +18,9 @@ import com.example.myapplication_2.utils.UserGenerator
 
 class NotificationsFragment : Fragment() {
 
+    val user = UserGenerator.generate()
+    val userName = user.name
+
     private var _binding: FragmentNotificationsBinding? = null
     private val binding get() = _binding!!
 

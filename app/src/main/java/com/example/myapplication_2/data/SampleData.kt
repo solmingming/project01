@@ -42,7 +42,7 @@ val sampleRecipes = listOf(
         description = listOf("밥을 그릇에 담고 기름을 뺀 참치를 올려줍니다",
                 "마요네즈를 뿌려서 비벼주면 완성!"),
         rating = 1,
-        author = "달콤한 피자",
+        author = "@달콤한 피자",
         ingredients = listOf("밥","참치","마요네즈")
     ),
     Recipe(
