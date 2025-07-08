@@ -165,7 +165,7 @@ class DashboardFragment : Fragment() {
 
             val recipe = Recipe(
                 imageFileName = imageFileName,
-                imageUri = currentImageUri?.toString(),
+                imageUri = currentImageUri,
                 title = title,
                 description = steps.toList(),
                 rating = rating,

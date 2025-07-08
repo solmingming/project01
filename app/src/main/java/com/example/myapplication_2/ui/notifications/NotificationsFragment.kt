@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication_2.data.RecipeRepository
 import com.example.myapplication_2.data.sampleRecipes
 import com.example.myapplication_2.databinding.FragmentNotificationsBinding
-import com.example.myapplication_2.ui.notifications.GridRecipeAdapter
 import com.example.myapplication_2.ui.model.Recipe
 import com.example.myapplication_2.utils.UserGenerator
+import android.util.Log
 
 class NotificationsFragment : Fragment() {
 
@@ -27,9 +27,8 @@ class NotificationsFragment : Fragment() {
     private lateinit var recipeAdapter: GridRecipeAdapter
     private val recipeList = mutableListOf<Recipe>()
 
-    // 형용사와 재료 조합 후보
-    private val adjectives = listOf("달콤한", "매콤한", "바삭한", "촉촉한")
-    private val ingredients = listOf("피자", "떡볶이", "삼겹살", "라면")
+    private val adjectives = listOf("달콤한")
+    private val foods = listOf("피자")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,7 +53,7 @@ class NotificationsFragment : Fragment() {
         // 유저 이름 표시
         binding.textUsername.text = "@$userName"
 
-        // 레시피 데이터 준비
+        // 샘플 레시피 초기화
         if (RecipeRepository.getAllRecipes().isEmpty()) {
             RecipeRepository.addAll(sampleRecipes)
         }
@@ -64,7 +63,12 @@ class NotificationsFragment : Fragment() {
 
     private fun setupRecyclerView(userName: String) {
         val allRecipes = RecipeRepository.getAllRecipes()
-        val userRecipes = allRecipes.filter { it.author == userName }
+
+        val userRecipes = allRecipes.filter {
+            it.author == userName
+        }
+
+        Log.d("MyPage", "필터된 레시피 수: ${userRecipes.size}")
 
         recipeList.clear()
         recipeList.addAll(userRecipes)
@@ -82,7 +86,7 @@ class NotificationsFragment : Fragment() {
         val existingName = prefs.getString("randomUserName", null)
         if (existingName != null) return existingName
 
-        val randomName = "${adjectives.random()} ${ingredients.random()}"
+        val randomName = "${adjectives.random()} ${foods.random()}"
         prefs.edit().putString("randomUserName", randomName).apply()
         return randomName
     }

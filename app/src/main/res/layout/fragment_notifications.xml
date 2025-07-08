@@ -1,47 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fillViewport="true"
     android:background="@android:color/white">
 
-    <!-- 상단 헤더 (My page 텍스트) -->
-    <TextView
-        android:id="@+id/text_dashboard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-
-        android:fontFamily="@font/dunggeunmo"
-        android:text="My Page"
-        android:textColor="#000000"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- 프로필 정보 영역 -->
     <LinearLayout
-        android:id="@+id/profileInfoContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingHorizontal="20dp"
-        android:gravity="center_vertical">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:scaleType="centerCrop"
-            android:clipToOutline="true" />
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <!-- 상단 헤더 (My page 텍스트) -->
+        <TextView
+            android:id="@+id/text_dashboard"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/dunggeunmo"
+            android:text="My Page"
+            android:textColor="#000000"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 프로필 이미지 + 이름 + 버튼을 수직 중앙 정렬 -->
+        <LinearLayout
+            android:id="@+id/profileInfoContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="16dp">
+            android:gravity="center_horizontal"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/circle_background"
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/textUsername"
@@ -54,25 +53,25 @@
             <Button
                 android:id="@+id/buttonMyFridge"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
                 android:text="나의 냉장고"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 android:textColor="@android:color/white"
                 android:backgroundTint="@color/sol_sky_blue"
-                android:layout_marginTop="6dp"
                 android:paddingHorizontal="12dp" />
         </LinearLayout>
-    </LinearLayout>
 
-    <!-- 유저 레시피 목록 (그리드) -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerUserRecipes"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="8dp"
-        android:clipToPadding="false"
-        android:scrollbars="vertical"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="3" />
-</LinearLayout>
+        <!-- 그리드 이미지 (RecyclerView 대신 GridLayout 등으로 대체 필요) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerUserRecipes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:padding="0dp"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
