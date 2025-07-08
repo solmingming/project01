@@ -9,29 +9,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <!-- 상단 헤더 (My page 텍스트) -->
+        <!-- 상단 헤더 -->
         <TextView
             android:id="@+id/text_dashboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
             android:layout_marginBottom="12dp"
             android:fontFamily="@font/dunggeunmo"
             android:text="My Page"
             android:textColor="#000000"
-            android:textSize="30sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="30sp" />
 
-        <!-- 프로필 이미지 + 이름 + 버튼을 수직 중앙 정렬 -->
+        <!-- 프로필 정보 -->
         <LinearLayout
             android:id="@+id/profileInfoContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center_horizontal"
+            android:orientation="vertical"
             android:paddingBottom="16dp">
 
             <ImageView
@@ -47,31 +45,71 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="user1"
-                android:textSize="16sp"
-                android:textColor="@android:color/black" />
-
-            <Button
-                android:id="@+id/buttonMyFridge"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="8dp"
-                android:text="나의 냉장고"
-                android:textSize="10sp"
-                android:textColor="@android:color/white"
-                android:backgroundTint="@color/sol_sky_blue"
-                android:paddingHorizontal="12dp" />
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- 그리드 이미지 (RecyclerView 대신 GridLayout 등으로 대체 필요) -->
+        <!-- ✅ 재료 입력 라벨 -->
+        <TextView
+            android:id="@+id/label_ingredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+
+            android:fontFamily="@font/dunggeunmo"
+            android:text="My Refrigerator"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <!-- ✅ AutoCompleteTextView 입력창 -->
+
+        <!-- ✅ ChipGroup -->
+
+        <AutoCompleteTextView
+            android:id="@+id/multiSearch"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/ingredient_input"
+            android:completionThreshold="1"
+            android:hint="냉장고에 있는 재료를 입력해주세요."
+            android:inputType="text"
+            android:padding="12dp"
+            android:textColorHint="#999999"
+            android:textSize="10sp" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            style="@style/CustomChipStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            app:chipSpacing="8dp"
+            app:singleLine="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
+            android:fontFamily="@font/dunggeunmo"
+            android:text="My recipe"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <!-- 기존 레시피 그리드 -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerUserRecipes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"
-            android:padding="0dp"
             android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            android:paddingTop="16dp"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="3" />
+
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

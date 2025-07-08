@@ -41,7 +41,8 @@
                 android:id="@+id/imageUpload"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="32dp"
                 android:adjustViewBounds="false"
                 android:background="@drawable/uploadicon"
                 android:clickable="true"
@@ -51,19 +52,20 @@
                 app:layout_constraintStart_toStartOf="@+id/text_dashboard"
                 app:layout_constraintTop_toBottomOf="@id/text_dashboard" />
 
+            <!-- 난이도 -->
+
+            <!-- 재료 -->
+
             <TextView
                 android:id="@+id/label_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="32dp"
                 android:text="메뉴명"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/text_dashboard"
                 app:layout_constraintTop_toBottomOf="@+id/text_dashboard" />
-
-            <!-- 난이도 -->
-
-            <!-- 재료 -->
 
             <EditText
                 android:id="@+id/editTextMenuName"
@@ -118,6 +120,7 @@
                 android:background="@drawable/ingredient_input"
                 android:completionThreshold="1"
                 android:hint="재료는 다섯개까지만 입력 가능합니다."
+                android:layout_marginHorizontal="8dp"
                 android:inputType="text"
                 android:padding="12dp"
                 android:textColorHint="#999999"
@@ -128,6 +131,7 @@
                 app:layout_constraintTop_toBottomOf="@id/label_ingredient" />
 
             <com.google.android.material.chip.ChipGroup
+                android:layout_marginHorizontal="8dp"
                 android:id="@+id/chipGroup"
                 style="@style/CustomChipStyle"
                 android:layout_width="match_parent"
@@ -165,6 +169,7 @@
                 android:id="@+id/stepContainer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:layout_marginTop="8dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -172,6 +177,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView">
 
                 <!-- 첫 번째 입력칸 -->
+
+                <!-- + 버튼 -->
+
                 <EditText
                     android:id="@+id/stepEditText1"
                     android:layout_width="match_parent"
@@ -183,7 +191,6 @@
                     android:padding="12dp"
                     android:textSize="11sp" />
 
-                <!-- + 버튼 -->
                 <ImageButton
                     android:id="@+id/addStepButton"
                     android:layout_width="match_parent"

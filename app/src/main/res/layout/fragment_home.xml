@@ -15,19 +15,19 @@
         <EditText
             android:id="@+id/searchBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="재료, 유저, 요리명 등 자유롭게 입력해주세요."
-            android:textColorHint="#656565"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
+            android:layout_height="42dp"
+            android:layout_margin="8dp"
             android:background="@drawable/searchbar_blue_border"
-            android:drawableStart="@android:drawable/ic_menu_search"
-            android:drawablePadding="8dp"
-            android:textSize="11sp"
+            android:drawableStart="@drawable/ic_menu_search_blue"
+            android:drawablePadding="10dp"
+            android:hint="재료, 유저, 요리명 등 자유롭게 입력해주세요."
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:layout_margin="8dp"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColorHint="#656565"
+            android:textSize="11sp" />
 
         <!-- 📋 레시피 리스트 -->
         <androidx.recyclerview.widget.RecyclerView

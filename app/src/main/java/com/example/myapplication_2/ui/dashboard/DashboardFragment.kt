@@ -226,7 +226,11 @@ class DashboardFragment : Fragment() {
             chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.my_chip_bg))
             chipStrokeColor = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.my_chip_stroke))
             chipStrokeWidth = 1.0f
+            closeIconTint = ColorStateList.valueOf(
+                ContextCompat.getColor(context, R.color.my_close_icon_color))
+
             setPadding(24, 5, 10, 5)
+
 
             setOnCloseIconClickListener {
                 chipGroup.removeView(this)

@@ -43,4 +43,7 @@
         android:name="com.example.myapplication_2.ui.detail.RecipeDetailFragment"
         android:label="레시피 상세"
         tools:layout="@layout/fragment_recipe_detail" />
+
+
+
 </navigation>
