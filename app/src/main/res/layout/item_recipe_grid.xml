@@ -2,14 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="2dp">
+    android:layout_gravity="center"
+    android:padding="1dp">
 
-    <ImageView
+    <com.example.myapplication_2.ui.view.SquareImageView
         android:id="@+id/gridImage"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:adjustViewBounds="true"
+        android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:layout_gravity="center"
-        android:background="@color/gray_kim" />
+        android:background="@color/gray_kim"
+        />
+
 </FrameLayout>

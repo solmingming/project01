@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.example.myapplication_2.R
 import com.example.myapplication_2.data.RecipeRepository
 import com.example.myapplication_2.ui.model.Recipe
+import android.util.Log
 
 class GridRecipeAdapter(
     private val recipeList: List<Recipe>
@@ -23,14 +24,6 @@ class GridRecipeAdapter(
     class GridViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val recipeImage: ImageView = view.findViewById(R.id.gridImage)
 
-        init {
-            recipeImage.outlineProvider = object : ViewOutlineProvider() {
-                override fun getOutline(view: View, outline: Outline) {
-                    outline.setRoundRect(0, 0, view.width, view.height, 16f)
-                }
-            }
-            recipeImage.clipToOutline = true
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GridViewHolder {
@@ -43,14 +36,15 @@ class GridRecipeAdapter(
         val recipe = recipeList[position]
         val context: Context = holder.itemView.context
 
-        val uri = recipe.imageUri?.let { Uri.parse(it)}
+        val uri = recipe.imageUri  // ✅ 이미 Uri? 타입이므로 그대로 사용
 
         if (uri != null) {
             Glide.with(context)
-                .load(uri)  // ✅ Uri 그대로 사용
+                .load(uri)
                 .into(holder.recipeImage)
         } else {
             val assetPath = "file:///android_asset/dishImage/${recipe.imageFileName}"
+            Log.d("GridAdapter", "Loading image from ASSET: $assetPath")
             Glide.with(context)
                 .load(assetPath)
                 .into(holder.recipeImage)
