@@ -5,7 +5,7 @@
 ## 📱 소개
 
 **넙죽이네 한끼**는 사용자가 직접 만든 레시피를 공유하고, 다른 사람의 레시피를 볼 수 있는 안드로이드 기반의 레시피 공유 앱입니다.  
-앱 마스코트 '넙죽이'가 오늘의 추천 메뉴도 알려줘요!
+'넙죽이'가 오늘의 추천 메뉴도 알려줘요!
 
 ## 🔑 주요 기능
 
@@ -16,14 +16,30 @@
 - 사용자 경험을 고려한 레시피 난이도, 음식 종류별 정렬 기능
 - 첫 실행 시 넙죽이가 사용자에게 오늘 먹고 싶은 음식을 질문해 추천 유도
 
-## 🛠️ 기술 스택
+## 스크린샷 
+<table>
+  <tr>
+    <th>스크린샷</th>
+    <th>기능</th>
+  </tr>
+  <tr>
+    <td>
+      <img src="이미지1_URL" width="400"/>
+    </td>
+    <td>
+      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="이미지2_URL" width="400"/>
+    </td>
+    <td>
+      
+    </td>
+  </tr>
+</table>
 
-- Kotlin + Android SDK
-- ViewBinding
-- Glide (이미지 로딩)
-- SharedPreferences (간단한 유저 정보 캐싱)
-- RecyclerView + Fragment 구조
-- (추후 Firebase 등 백엔드 연동 가능성 고려)
 
-## 📂 프로젝트 구조
-
+## APK
+https://drive.google.com/file/d/105rFVQSNOBHyysNXiR-6K2qztsim8OHw/view?usp=drive_link
