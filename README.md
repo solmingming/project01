@@ -36,20 +36,20 @@
     <th>기능</th>
   </tr>
   <tr>
-    <td><img src="이미지1_URL" width="400"/></td>
-    <td></td>
+    <td><img src="Screenshot_20250709-181036_ .jpg" width="400"/></td>
+    <td>홈화면에서 레시피들과 추천 메뉴를 확인하고 검색할 수 있어요!</td>
   </tr>
   <tr>
-    <td><img src="이미지2_URL" width="400"/></td>
-    <td></td>
+    <td><img src="Screenshot_20250709-181255_ .jpg" width="400"/></td>
+    <td>레시피 세부로 들어오면 사용된 재료(최대 5개)와 레시피 단계들을 볼 수 있어요!</td>
   </tr>
   <tr>
-    <td><img src="이미지3_URL" width="400"/></td>
-    <td></td>
+    <td><img src="Screenshot_20250709-181323_ .jpg" width="400"/></td>
+    <td>레시피를 추가하고 싶다면 사진, 재료, 제목 그리고 레시피 내용까지 업로드 가능해요!</td>
   </tr>
   <tr>
-    <td><img src="이미지4_URL" width="400"/></td>
-    <td></td>
+    <td><img src="Screenshot_20250709-181204_ .jpg" width="400"/></td>
+    <td>마이페이지에 들어오면 본인이 올렸던 레시피들을 확인할 수 있고, 마이 냉장고에 가지고 있는 재료들을 업로드 해두면 홈화면에서 가지고 있는 재료로 만들 수 있는 레시피들을 볼 수 있어요!</td>
   </tr>
 </table>
 
