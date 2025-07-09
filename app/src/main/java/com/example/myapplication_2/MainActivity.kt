@@ -9,10 +9,8 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import com.example.myapplication_2.databinding.ActivityMainBinding
 import com.example.myapplication_2.utils.UserGenerator
-import com.example.myapplication_2.utils.RandomUser
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -43,35 +41,15 @@ class MainActivity : AppCompatActivity() {
         // ✅ 네비게이션 설정
         navController = findNavController(R.id.nav_host_fragment_activity_main)
 
+        // ✅ 하단 탭바 설정
         val navView: BottomNavigationView = binding.navView
-
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home,
-                R.id.navigation_dashboard,
-                R.id.navigation_notifications
-            )
-        )
-
         navView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_home -> {
-                    navController.popBackStack(R.id.navigation_home, false)
-                    navController.navigate(R.id.navigation_home)
-                    true
-                }
-                R.id.navigation_dashboard -> {
-                    navController.popBackStack(R.id.navigation_dashboard, false)
-                    navController.navigate(R.id.navigation_dashboard)
-                    true
-                }
-                R.id.navigation_notifications -> {
-                    navController.popBackStack(R.id.navigation_notifications, false)
-                    navController.navigate(R.id.navigation_notifications)
-                    true
-                }
-                else -> false
-            }
+            // 이미 해당 화면에 있으면 재네비게이션 하지 않음 (Bundle 유지 목적)
+            if (navController.currentDestination?.id == item.itemId) return@setOnItemSelectedListener true
+
+            navController.popBackStack(item.itemId, false)
+            navController.navigate(item.itemId)
+            true
         }
     }
 
@@ -83,5 +61,12 @@ class MainActivity : AppCompatActivity() {
             currentFocus!!.clearFocus()
         }
         return super.dispatchTouchEvent(ev)
+    }
+
+    /**
+     * 외부에서 하단 탭을 강제로 선택하는 함수
+     */
+    fun setSelectedTab(menuId: Int) {
+        binding.navView.selectedItemId = menuId
     }
 }

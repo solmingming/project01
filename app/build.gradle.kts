@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
-
+    id("kotlin-parcelize")
 }
 
 android {
@@ -57,4 +57,5 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.16.0")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
     implementation("com.google.android.material:material:1.12.0")
+    implementation("org.jetbrains.kotlin:kotlin-parcelize-runtime")
 }

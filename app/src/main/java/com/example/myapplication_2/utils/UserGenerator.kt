@@ -1,6 +1,7 @@
 package com.example.myapplication_2.utils
 
 import android.content.Context
+import android.graphics.Color
 import com.example.myapplication_2.R
 
 data class RandomUser(
@@ -15,12 +16,32 @@ object UserGenerator {
 
     private val adjectiveColorMap = mapOf(
         "달콤한" to "#FFE6E6",
-        "바삭한" to "#FFF4E6"
+        "바삭한" to "#FFF4E6",
+        "매콤한" to "#FF7E7E",
+        "따뜻한" to "#FFD3B7",
+        "촉촉한" to "#CEE3D5",
+        "담백한" to "#FFFEBB",
+        "고소한" to "#FFCB78",
+        "쫄깃한" to "#FFE0FB",
+        "시원한" to "#BED7FF",
+        "향긋한" to "#E0FFD8"
     )
 
     private val ingredientImageMap = mapOf(
         "피자" to R.drawable.pizza,
-        "쿠키" to R.drawable.cookie
+        "계란" to R.drawable.egg,
+        "브로콜리" to R.drawable.broccoli,
+        "딸기" to R.drawable.strawberry,
+        "키위" to R.drawable.kiwi,
+        "토마토" to R.drawable.tomato,
+        "쿠키" to R.drawable.cookie,
+        "식빵" to R.drawable.bread,
+        "아보카도" to R.drawable.avocado,
+        "바나나" to R.drawable.banana,
+        "스마일 감자" to R.drawable.smile_potato,
+        "소금빵" to R.drawable.salt_bread,
+        "생선" to R.drawable.fish,
+        "고기" to R.drawable.meat
     )
 
     private const val PREF_NAME = "UserPrefs"
@@ -28,10 +49,6 @@ object UserGenerator {
     private const val KEY_COLOR = "userColor"
     private const val KEY_IMAGE = "userImage"
 
-    /**
-     * 랜덤 유저 생성 (캐시 및 저장은 외부에서 처리)
-     */
-    // 처음 한 번만 호출될 함수
     fun generateFixedFirstUser(): RandomUser {
         val adjective = adjectiveColorMap.keys.first() // "달콤한"
         val ingredient = ingredientImageMap.keys.first() // "피자"
@@ -40,7 +57,6 @@ object UserGenerator {
         return RandomUser("$adjective $ingredient", color, imageResId)
     }
 
-    // 랜덤 유저는 그대로 유지
     fun generateNewRandomUser(): RandomUser {
         val adjective = adjectiveColorMap.keys.random()
         val ingredient = ingredientImageMap.keys.random()
@@ -49,11 +65,6 @@ object UserGenerator {
         return RandomUser("$adjective $ingredient", color, imageResId)
     }
 
-
-    /**
-     * SharedPreferences → 유저 정보 불러오기
-     * (MainActivity 전용 사용)
-     */
     fun saveUserToPrefs(context: Context, user: RandomUser) {
         val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         prefs.edit()
@@ -63,8 +74,6 @@ object UserGenerator {
             .apply()
 
         cachedUser = user
-
-        // 디버깅용 로그 추가
         android.util.Log.d("UserGenerator", "✅ User saved to prefs: $user")
     }
 
@@ -80,23 +89,21 @@ object UserGenerator {
             }
         } else null
 
-        // 디버깅용 로그
         android.util.Log.d("UserGenerator", "📦 Loaded user from prefs: $loaded")
         return loaded
     }
 
-
-    /**
-     * 메모리 캐시에 유저 수동 설정
-     */
     fun setCachedUser(user: RandomUser) {
         cachedUser = user
     }
 
-    /**
-     * 메모리 캐시 유저 가져오기
-     */
     fun getCachedUser(): RandomUser {
         return cachedUser ?: throw IllegalStateException("User not cached. Load or create first.")
+    }
+
+    // ✅ 추가: 형용사에 대응하는 색상을 int 값으로 반환하는 함수
+    fun getColorInt(context: Context, adjective: String): Int {
+        val hex = adjectiveColorMap[adjective] ?: "#FFFFFF"
+        return Color.parseColor(hex)
     }
 }

@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.myapplication_2.MainActivity
+import com.example.myapplication_2.R
 import com.example.myapplication_2.databinding.FragmentAccountCreationBinding
 import com.example.myapplication_2.utils.RandomUser
 import com.example.myapplication_2.utils.UserGenerator
@@ -47,7 +49,6 @@ class AccountCreationFragment : Fragment() {
         }
 
         binding.dislikeButton.setOnClickListener {
-            // 이후부터는 랜덤 유저 보여주기
             isFirstUser = false
             showNewUser()
         }
@@ -63,9 +64,12 @@ class AccountCreationFragment : Fragment() {
         binding.generatedName.text = "@${currentUser.name}"
         binding.generatedProfile.setImageResource(currentUser.imageResId)
 
+        // ✅ 프로필 배경을 원형으로 유지하면서 색상 적용
         runCatching {
             val color = Color.parseColor(currentUser.colorHex)
-            binding.profileContainer.setBackgroundColor(color)
+            val bg = ContextCompat.getDrawable(requireContext(), R.drawable.circle_background)
+            bg?.setTint(color)
+            binding.profileContainer.background = bg
         }.onFailure {
             binding.profileContainer.setBackgroundColor(Color.LTGRAY)
         }

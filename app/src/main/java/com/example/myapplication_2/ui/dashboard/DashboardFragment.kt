@@ -2,6 +2,7 @@ package com.example.myapplication_2.ui.dashboard
 
 import android.content.res.ColorStateList
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -20,6 +21,8 @@ import com.example.myapplication_2.databinding.FragmentDashboardBinding
 import com.example.myapplication_2.ui.model.Recipe
 import com.example.myapplication_2.utils.UserGenerator
 import com.google.android.material.chip.Chip
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.bumptech.glide.Glide
 
 class DashboardFragment : Fragment() {
 
@@ -36,6 +39,7 @@ class DashboardFragment : Fragment() {
     private var isImageUploaded = false
 
     private val savedRecipeList = mutableListOf<Recipe>()
+    private var editingRecipe: Recipe? = null // ⭐ 전달된 Recipe가 있다면 수정 모드
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,9 +57,9 @@ class DashboardFragment : Fragment() {
         submitButton = binding.submitButton
 
         imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            if (uri != null) {
-                currentImageUri = uri
-                imageUploadButton.setImageURI(uri)
+            uri?.let {
+                currentImageUri = it
+                imageUploadButton.setImageURI(it)
                 isImageUploaded = true
                 updateSubmitButtonState()
             }
@@ -70,22 +74,12 @@ class DashboardFragment : Fragment() {
             imagePickerLauncher.launch("image/*")
         }
 
-        binding.editTextMenuName.addTextChangedListener(object : android.text.TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                updateSubmitButtonState()
-            }
-            override fun afterTextChanged(s: android.text.Editable?) {}
-        })
-
-        binding.ratingBar.setOnRatingBarChangeListener { _, _, _ ->
-            updateSubmitButtonState()
-        }
+        binding.editTextMenuName.addTextChangedListener { updateSubmitButtonState() }
+        binding.ratingBar.setOnRatingBarChangeListener { _, _, _ -> updateSubmitButtonState() }
 
         val inputView: AutoCompleteTextView = binding.multiSearch
         val chipGroup = binding.chipGroup
 
-        // ✅ IngredientStore에서 가져와 어댑터 설정
         adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, IngredientStore.ingredients)
         inputView.setAdapter(adapter)
 
@@ -110,9 +104,7 @@ class DashboardFragment : Fragment() {
                 layoutParams = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
-                ).apply {
-                    bottomMargin = 24
-                }
+                ).apply { bottomMargin = 24 }
                 background = ContextCompat.getDrawable(context, R.drawable.edittext_background)
                 hint = "step $stepCount. 레시피를 작성해주세요"
                 textSize = 10f
@@ -123,11 +115,75 @@ class DashboardFragment : Fragment() {
             binding.stepContainer.addView(newEditText, binding.stepContainer.childCount - 1)
         }
 
+        // ✅ 수정 모드면 데이터 채워넣기
+        editingRecipe = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable("editing_recipe", Recipe::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            arguments?.getParcelable("editing_recipe")
+        }
+
+        editingRecipe?.let { recipe ->
+            binding.editTextMenuName.setText(recipe.title)
+            binding.ratingBar.rating = recipe.rating.toFloat()
+            isImageUploaded = true
+
+            // 이미지 처리
+            when {
+                recipe.imageUri != null -> {
+                    currentImageUri = recipe.imageUri
+                    imageUploadButton.setImageURI(currentImageUri)
+                }
+                !recipe.imageFileName.isNullOrBlank() -> {
+                    val assetPath = "file:///android_asset/dishImage/${recipe.imageFileName}"
+                    Glide.with(this)
+                        .load(assetPath)
+                        .into(imageUploadButton)
+                    currentImageUri = null
+                }
+                else -> {
+                    // 이미지 없음 (유지)
+                    isImageUploaded = false
+                }
+            }
+
+            // 재료
+            recipe.ingredients.forEach {
+                selectedIngredients.add(it)
+                addChip(it, chipGroup)
+            }
+
+            // 단계
+            recipe.description.forEachIndexed { index, step ->
+                if (index == 0) {
+                    val firstStep = binding.stepContainer.getChildAt(0) as? EditText
+                    firstStep?.setText(step)
+                } else {
+                    stepCount++
+                    val newEditText = EditText(requireContext()).apply {
+                        layoutParams = LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        ).apply { bottomMargin = 24 }
+                        background = ContextCompat.getDrawable(context, R.drawable.edittext_background)
+                        hint = "step $stepCount. 레시피를 작성해주세요"
+                        textSize = 10f
+                        setPadding(24, 24, 24, 24)
+                        inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
+                        setText(step)
+                    }
+                    newEditText.addTextChangedListener { updateSubmitButtonState() }
+                    binding.stepContainer.addView(newEditText, binding.stepContainer.childCount - 1)
+                }
+            }
+
+            updateSubmitButtonState()
+        }
+
+
         submitButton.setOnClickListener {
             val title = binding.editTextMenuName.text.toString()
             val rating = binding.ratingBar.rating.toInt()
-            val imageFileName = currentImageUri?.lastPathSegment ?: "default.jpg"
-
             val steps = mutableListOf<String>()
             for (i in 0 until binding.stepContainer.childCount) {
                 val view = binding.stepContainer.getChildAt(i)
@@ -138,9 +194,17 @@ class DashboardFragment : Fragment() {
 
             val currentUserName = UserGenerator.getCachedUser().name
 
-            val recipe = Recipe(
-                imageFileName = imageFileName,
-                imageUri = currentImageUri,
+            // 🔧 이미지 처리 로직
+            val (finalImageUri, finalImageFileName) = when {
+                currentImageUri != null -> currentImageUri to currentImageUri?.lastPathSegment
+                !editingRecipe?.imageFileName.isNullOrBlank() -> null to editingRecipe?.imageFileName
+                else -> null to "default.jpg"
+            }
+
+            // 새로운 레시피 생성
+            val newRecipe = Recipe(
+                imageFileName = finalImageFileName ?: "default.jpg",
+                imageUri = finalImageUri,
                 title = title,
                 description = steps.toList(),
                 rating = rating,
@@ -148,17 +212,20 @@ class DashboardFragment : Fragment() {
                 ingredients = selectedIngredients.toList()
             )
 
-            savedRecipeList.add(recipe)
-            RecipeRepository.addRecipe(recipe)
+            // 기존 레시피 제거 (수정 모드일 경우)
+            editingRecipe?.let { RecipeRepository.removeRecipe(it) }
+
+            savedRecipeList.add(newRecipe)
+            RecipeRepository.addRecipe(newRecipe)
 
             Toast.makeText(requireContext(), "레시피가 저장되었어요!", Toast.LENGTH_SHORT).show()
 
+            // 등록 후 Notification 화면으로 이동 + 탭 아이콘 변경
             findNavController().navigate(R.id.action_navigation_dashboard_to_navigation_notifications)
-
-            val activity = requireActivity()
-            val bottomNav = activity.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view)
-            bottomNav.selectedItemId = R.id.navigation_notifications
+            requireActivity().findViewById<BottomNavigationView>(R.id.nav_view).selectedItemId =
+                R.id.navigation_notifications
         }
+
     }
 
     private fun handleIngredientInput(
@@ -175,13 +242,10 @@ class DashboardFragment : Fragment() {
             addChip(inputText, chipGroup)
             updateSubmitButtonState()
 
-            // ✅ 자동완성 리스트에도 추가
             if (!IngredientStore.ingredients.contains(inputText)) {
                 IngredientStore.ingredients.add(inputText)
                 adapter.notifyDataSetChanged()
-
                 Log.d("AutoComplete", "추가된 단어: $inputText")
-                Log.d("AutoComplete", "현재 전체 재료 리스트: ${IngredientStore.ingredients}")
             }
         }
 
@@ -229,11 +293,9 @@ class DashboardFragment : Fragment() {
             chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.my_chip_bg))
             chipStrokeColor = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.my_chip_stroke))
             chipStrokeWidth = 1.0f
-            closeIconTint = ColorStateList.valueOf(
-                ContextCompat.getColor(context, R.color.my_close_icon_color))
+            closeIconTint = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.my_close_icon_color))
 
             setPadding(24, 5, 10, 5)
-
 
             setOnCloseIconClickListener {
                 chipGroup.removeView(this)

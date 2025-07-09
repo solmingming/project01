@@ -1,5 +1,3 @@
-// com.example.myapplication_2.data.RecipeRepository.kt
-
 package com.example.myapplication_2.data
 
 import com.example.myapplication_2.ui.model.Recipe
@@ -24,5 +22,8 @@ object RecipeRepository {
     fun addRecipe(recipe: Recipe) {
         recipeList.add(recipe)
     }
-}
 
+    fun removeRecipe(recipe: Recipe) {
+        recipeList.remove(recipe)
+    }
+}
